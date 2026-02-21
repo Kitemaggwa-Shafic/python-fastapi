@@ -1,10 +1,9 @@
 from fastapi import FastAPI
-#from app.routes import issues
+from app.routes.issues import router as issues_router
  
 # Create a FastAPI app instance
 app = FastAPI()
 
-@app.get("/api")
-def check_api():
-    return {"status", "ok"}
+#we are incluidng the importted issue_router with in our app to be visible in our projet
+app.include_router(issues_router)
     
