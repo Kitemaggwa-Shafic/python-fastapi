@@ -31,3 +31,11 @@ class UpdateIssue(BaseModel):
     description: Optional[str] = Field(default=None, max_legth=500)
     priority: Optional[IssuePriority] = None
     status: Optional[IssueStatus] = None
+
+# schema for response after getting back all issue data from DB
+class IssueOut(BaseModel):
+    id: str
+    title: str
+    description: str
+    priority: IssuePriority
+    status: IssueStatus
