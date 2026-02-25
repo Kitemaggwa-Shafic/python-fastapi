@@ -1,7 +1,7 @@
 #for no DB, we shall our own id
 import uuid
 from fastapi import APIRouter, HTTPException, status
-from app.schemas import IssueCreate, UpdateIssue, IssueOut
+from app.schemas import IssueCreate, UpdateIssue, IssueOut, IssueStatus
 
 from app.storage import load_data, save_data
 
@@ -19,3 +19,21 @@ def get_issues():
     """REtrieve all issues back """
     issues = load_data()
     return issues  
+
+
+#post method, we are adding on status code
+@router.post("/", response_model=IssueOut, status_code=status.HTTP_201_CREATED)
+def create_issue(issue:IssueCreate):
+    """Creating an issue"""
+    issues = load_data()
+    #we are rapping our new issue in a dictionary 
+    new_issue = {
+        "id": str(uuid.uuid4()),
+        "title": issue.title,
+        "description": issue.description,
+        "priority": issue.priority,
+        "status": IssueStatus.open,
+    }
+    issues.append(new_issue)
+    save_data(issues)
+    return new_issue
