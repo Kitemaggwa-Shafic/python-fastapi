@@ -12,7 +12,10 @@ router = APIRouter(prefix="/api/v1/issues", tags=["issues"])
 
 
 #using the @router decorator and the diffrent methods
-@router.get("/issues")
+# so this .get g=will use a response model and return it as a list uing the issueout schema
+@router.get("/issues", response_model=list[IssueOut])
 #we can have our function to manage the data
 def get_issues():
-    return [] 
+    """REtrieve all issues back """
+    issues = load_data()
+    return issues  
