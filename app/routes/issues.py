@@ -48,3 +48,30 @@ def get_issue(issue_id: str):
         if issue["id"] == issue_id:
             return issue
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Issue Not found")
+
+
+#Update Issue
+@router.put("/{issue_id}", response_model=IssueOut)
+def update_issue(issue_id: str, payload: UpdateIssue):
+    """" Updating an Issue """
+    issues = load_data()
+    for index, issue in enumerate(issues):
+        if issue["id"] == issue_id:
+            updated_issue = issue.copy()
+            if payload.title is not None:
+                updated_issue["title"] = payload.title
+            if payload.description is not None:
+                updated_issue["description"] = payload.description
+            if payload.priority is not None:
+                updated_issue["priority"] = payload.priority
+            if payload.status is not None:
+                updated_issue["status"] = payload.status
+            
+            issue[index] = updated_issue
+            save_data(issues)
+            return updated_issue
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="issue not found in DB")
+
+
+
+
