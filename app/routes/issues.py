@@ -39,6 +39,7 @@ def create_issue(issue:IssueCreate):
     return new_issue
 
 
+#Getting a single issue using its ID
 @router.get("/{issue_id}", response_model=IssueOut)
 def get_issue(issue_id: str):
     """" Retrieve a Specific Issue by ID """
