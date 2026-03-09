@@ -5,7 +5,7 @@ from pathlib import Path
 import json
 
 
-DATA_DIR = Path("date")
+DATA_DIR = Path("database-file")
 DATA_FILE = DATA_DIR/"issues.json"
 
 #fucntion for loading our saved data
